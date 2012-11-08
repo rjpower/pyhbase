@@ -1,3 +1,4 @@
+import functools
 import os
 import sys
 
@@ -10,6 +11,7 @@ PROTOCOL = protocol.parse(open(PROTO_FILE).read())
 
 def retry_wrapper(fn):
   """a decorator to add retry symantics to any method that uses hbase"""
+  @functools.wraps(fn)
   def f(self, *args, **kwargs):
     try:
       return fn(self, *args, **kwargs)
